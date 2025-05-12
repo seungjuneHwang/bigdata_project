@@ -37,7 +37,7 @@ try:
     # //* 아래 셀렉터는 예시이며, 실제 네이버 웹툰 HTML 구조를 보고 정확히 바꿔야 합니다.
     # //* 보통 각 웹툰 하나하나를 나타내는 li 또는 div 요소를 찾습니다.
     # //* 개발자 도구(F12)로 웹툰 목록 부분을 검사하여 적절한 CSS 셀렉터를 찾으세요.
-    webtoon_items = driver.find_elements(By.CSS_SELECTOR, '#content > div.ListStyle.type_webtoon2 > ul > li') # 예시 셀렉터
+    webtoon_items = driver.find_elements(By.CSS_SELECTOR, '#content > div:nth-child(1) > ul') # 예시 셀렉터
 
     print(f"총 {len(webtoon_items)}개의 웹툰을 찾았습니다.")
 
@@ -47,19 +47,19 @@ try:
             # 썸네일 이미지 주소 추출
             # 썸네일 이미지는 img 태그의 src 속성에 있습니다.
             # 이미지를 감싸는 요소나 이미지 태그 자체의 셀렉터를 찾습니다.
-            thumbnail_img = item.find_element(By.CSS_SELECTOR, 'div.const_thumb > a > img') # 예시 셀렉터
+            thumbnail_img = item.find_element(By.CSS_SELECTOR, '#content > div:nth-child(1) > ul > li:nth-child(1) > a > div > img') # 예시 셀렉터
             thumbnail_url = thumbnail_img.get_attribute('src') if thumbnail_img else 'N/A'
 
             # 타이틀 추출
             # 타이틀은 보통 a 태그의 텍스트입니다.
             # 타이틀 요소를 감싸는 셀렉터와 타이틀 a 태그의 셀렉터를 찾습니다.
-            title_element = item.find_element(By.CSS_SELECTOR, 'div.const_subject > h5 > a') # 예시 셀렉터
+            title_element = item.find_element(By.CSS_SELECTOR, '#content > div:nth-child(1) > ul > li:nth-child(1) > div > a > span > span') # 예시 셀렉터
             title = title_element.text if title_element else 'N/A'
 
             # 작가명 추출
             # 작가명은 보통 a 또는 span 태그의 텍스트입니다.
             # 작가명 요소를 감싸는 셀렉터와 작가명 태그의 셀렉터를 찾습니다.
-            artist_element = item.find_element(By.CSS_SELECTOR, 'div.const_subject > div.artist > a') # 예시 셀렉터 (여러 작가일 수 있음)
+            artist_element = item.find_element(By.CSS_SELECTOR, '#content > div:nth-child(1) > ul > li:nth-child(1) > div > div.ContentAuthor__author_wrap--fV7Lo > a') # 예시 셀렉터 (여러 작가일 수 있음)
             # 여러 작가일 경우 join을 사용하거나 첫 번째 작가만 가져옵니다.
             artist = artist_element.text if artist_element else 'N/A'
 
@@ -67,7 +67,7 @@ try:
             # 평점 추출
             # 평점은 보통 strong 또는 em 태그의 텍스트입니다.
             # 평점 요소를 감싸는 셀렉터와 평점 태그의 셀렉터를 찾습니다.
-            rating_element = item.find_element(By.CSS_SELECTOR, 'div.rating_area > strong') # 예시 셀렉터
+            rating_element = item.find_element(By.CSS_SELECTOR, '#content > div:nth-child(1) > ul > li:nth-child(1) > div > div.rating_area > span > span') # 예시 셀렉터
             rating = rating_element.text if rating_element else 'N/A'
 
 
