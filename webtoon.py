@@ -42,6 +42,7 @@ try:
     # 먼저 웹툰 리스트를 감싸는 컨테이너를 확인
     wait = WebDriverWait(driver, 10)
     container = wait.until(EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'component_wrap')]")))
+                                                                  #  
     
     # 해당 컨테이너 내의 모든 웹툰 항목을 선택
     webtoon_items = driver.find_elements(By.XPATH, "//li[contains(@class, 'ComponentRankingChart__item--')]")
